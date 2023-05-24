@@ -1,0 +1,72 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+header{
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 2rem 0 .5rem;
+    height: 100px;
+}
+
+header h1{
+    font-weight: bolder;
+    font-family: cursive;
+}
+
+main{
+    height: calc(100vh - 100px);
+    background-color: rgba(127,255,212,255);
+    padding: 1rem 0;
+}
+
+button{padding: 5px 30px;}
+
+#level-difficult{padding: 5px 30px;}
+
+.grid{
+    display: flex;
+    flex-wrap: wrap;
+    width: 700px;
+    height: 100%;
+    margin: 0 auto;
+}
+
+.cell-easy{
+    display: flex;
+    border: 1px solid black;
+    background-color: #fff;
+    width: calc(100% / 10);
+    height: calc(100% / 10);
+}
+
+.cell-medium{
+    display: flex;
+    border: 1px solid black;
+    background-color: #fff;
+    width: calc(100% / 9);
+    height: calc(100% / 9);
+}
+
+.cell-hard{
+    display: flex;
+    border: 1px solid black;
+    background-color: #fff;
+    width: calc(100% / 7);
+    height: calc(100% / 7);
+}
+
+.grid .cell.disarm{
+    background-color: red;
+    background-image: url(https://minesweeper.us/media/bomba.png);
+    background-position: center center;
+    background-size: contain;
+    background-repeat: no-repeat;
+}
+
+.grid .cell.correct{
+    background-color: green;
+}
