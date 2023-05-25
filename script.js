@@ -12,8 +12,6 @@ Al termine della partita il software deve comunicare il punteggio, cioè il nume
 
 
 const buttonElement = document.querySelector('button');
-
-
 buttonElement.addEventListener('click', function(){
 
     startNewGame();
@@ -21,17 +19,23 @@ buttonElement.addEventListener('click', function(){
 });
 
 
+
+
+
 function startNewGame(){
 
 /*creation grid*/
     const gridElement = document.getElementById('grid');
-    gridElement.innerHTML = ""; 
-
-
+     
 /*level-difficult*/
     const level = parseInt(document.getElementById('level-difficult').value);
+
+    let userScore = 0;
     let cellsNumber = 0;
     let cellsClass = "";
+    let gameOver = false;
+
+
     if(level === 0){
 
         cellsNumber = 100;
@@ -48,26 +52,62 @@ function startNewGame(){
         cellsClass = 'cell-hard';
     };
 
+
+
+
+    const bombList = randomNumber(1, cellsNumber, 16);
+    console.log(bombList);
+
+
+    gridElement.innerHTML = "";
+
+
+
+    
 /*creazione celle*/
 for (let index = 1; index <= cellsNumber; index++) {
 
     const actualCell =  document.createElement('div');
-
     actualCell.classList.add(cellsClass);
-
+    
 /*evento al click della cella*/
     actualCell.addEventListener('click', function(){
 
-        if(actualCell[index] == randomNumber()){
 
-            actualCell.classList.toggle('disarm');
-            alert('HAI PERSO :(')
+        if(!gameOver){   
+        if(bombList.includes(index)){
+
+            this.classList.add('disarm');
+            alert('HAI PERSO :( , il tuo risultato è: ' + userScore);
+            gameOver = true;
 
         }else{
-            actualCell.classList.toggle('correct');
+
+            if(this.classList.contains('correct')){
+
+                console.log(userScore, 'hai già cliccato su quella cella!');
+
+            }else{
+
+                console.log(userScore);
+               userScore++;
+               this.classList.add('correct'); 
+            }
+
+            
+        };
+
+        }else{
+
+            alert('Inizia una nuova partita');
+
         };
 
     });
+
+
+
+    
 
     gridElement.appendChild(actualCell);
  
@@ -76,11 +116,20 @@ for (let index = 1; index <= cellsNumber; index++) {
 
 
 
-function randomNumber(){
+
+
+
+function randomNumber(minNum, MaxNum, elements){
 
     const randomNumberList = [];
-    while(randomNumberList < 16){
-        const newRandomNumber = getRandomINt[1, 100];
+
+    if((MaxNum-minNum) < elements){
+        return[]
+    };
+
+    while(randomNumberList < elements){
+
+        const newRandomNumber = getRandomINt[minNum, MaxNum];
 
         if( !randomNumberList.includes(newRandomNumber)){
             randomNumberList.push(newRandomNumber);
@@ -91,9 +140,10 @@ function randomNumber(){
 };
 
 
-function getRandomINt(numberA, numberB){
+function getRandomINt(minNumber, maxNumber){
 
-    const singleNumber =  Math.floor(Math.random()*(numberA-numberB+1)+numberB);
+    const singleNumber =  Math.floor(Math.random()*(maxNumber-minNumber)+minNumber);
 
     return singleNumber;
+
 };
